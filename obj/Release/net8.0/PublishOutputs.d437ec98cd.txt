@@ -1,0 +1,11 @@
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\WebApplication2.exe
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\appsettings.Development.json
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\appsettings.json
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\WebApplication2.dll
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\WebApplication2.deps.json
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\WebApplication2.runtimeconfig.json
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\WebApplication2.pdb
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\Microsoft.OpenApi.dll
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\NeomiOs\source\repos\TryDocker\WebApplication2\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
