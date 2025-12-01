@@ -4,7 +4,7 @@ This file provides guidance for AI assistants working with this codebase.
 
 ## Project Overview
 
-**WebApplication2** is an ASP.NET Core 8.0 Web API project with Docker support. It serves as a containerized REST API template with Swagger/OpenAPI documentation.
+**WebApplication2** is an ASP.NET Core 8.0 Web API project with Docker support. It serves as a containerized REST API template with Swagger/OpenAPI documentation and a comprehensive test suite.
 
 ## Technology Stack
 
@@ -12,6 +12,8 @@ This file provides guidance for AI assistants working with this codebase.
 - **ASP.NET Core Web API** - REST API framework
 - **Swashbuckle.AspNetCore 6.6.2** - Swagger/OpenAPI integration
 - **Docker** - Containerization (Linux containers)
+- **xUnit** - Unit and integration testing framework
+- **Moq** - Mocking framework for tests
 
 ## Project Structure
 
@@ -21,14 +23,16 @@ DockerTry/
 │   └── WeatherForecastController.cs  # Sample API controller
 ├── Properties/
 │   └── launchSettings.json           # Development launch profiles
-├── bin/                              # Build output (Debug/Release)
-├── obj/                              # Intermediate build files
-├── publish/                          # Published application output
+├── Tests/
+│   ├── WebApplication2.Tests.csproj  # Test project file
+│   ├── WeatherForecastControllerTests.cs  # Unit tests
+│   └── IntegrationTests.cs           # Integration tests
 ├── Program.cs                        # Application entry point & configuration
 ├── WeatherForecast.cs                # Model class
 ├── WebApplication2.csproj            # Project file
 ├── WebApplication2.http              # HTTP request test file
 ├── Dockerfile                        # Multi-stage Docker build
+├── .gitignore                        # Git ignore rules
 ├── appsettings.json                  # Production configuration
 └── appsettings.Development.json      # Development configuration
 ```
@@ -49,6 +53,22 @@ dotnet run
 dotnet publish -c Release -o ./publish
 ```
 
+## Test Commands
+
+```bash
+# Run all tests
+dotnet test
+
+# Run tests with verbose output
+dotnet test --logger "console;verbosity=detailed"
+
+# Run tests with code coverage
+dotnet test --collect:"XPlat Code Coverage"
+
+# Run specific test class
+dotnet test --filter "FullyQualifiedName~WeatherForecastControllerTests"
+```
+
 ## Docker Commands
 
 ```bash
@@ -66,6 +86,7 @@ docker run -p 8080:8080 -p 8081:8081 webapplication2
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/weatherforecast` | Returns 5-day weather forecast sample data |
+| GET | `/health` | Health check endpoint for container orchestration |
 | GET | `/swagger` | Swagger UI (Development only) |
 
 ## Development URLs
@@ -75,6 +96,7 @@ docker run -p 8080:8080 -p 8081:8081 webapplication2
 - **Docker HTTP**: `http://localhost:8080`
 - **Docker HTTPS**: `https://localhost:8081`
 - **Swagger UI**: Append `/swagger` to any base URL
+- **Health Check**: Append `/health` to any base URL
 
 ## Code Conventions
 
@@ -93,6 +115,13 @@ docker run -p 8080:8080 -p 8081:8081 webapplication2
 - Register services in `Program.cs` using `builder.Services`
 - Use constructor injection in controllers
 
+### Testing
+- Place unit tests in `Tests/` directory
+- Use xUnit for test framework
+- Use Moq for mocking dependencies
+- Use `WebApplicationFactory<Program>` for integration tests
+- Name test methods: `MethodName_Scenario_ExpectedResult`
+
 ## Configuration
 
 ### Environment Variables
@@ -110,7 +139,11 @@ docker run -p 8080:8080 -p 8081:8081 webapplication2
 Use the included `.http` file with VS Code REST Client extension or:
 
 ```bash
+# Get weather forecast
 curl http://localhost:5214/weatherforecast
+
+# Check health status
+curl http://localhost:5214/health
 ```
 
 ## Docker Build Details
@@ -126,11 +159,14 @@ When adding new features:
 2. Add models in the root directory or create a `Models/` folder
 3. Register new services in `Program.cs`
 4. Update `appsettings.json` for new configuration
+5. Add corresponding tests in `Tests/`
 
 ## Notes for AI Assistants
 
 - This is a minimal Web API template - extend it based on requirements
 - Swagger is enabled only in Development environment
 - The project uses implicit usings and nullable reference types
+- Health check endpoint is available at `/health` for Kubernetes/Docker health probes
 - No database is configured - add Entity Framework Core if needed
 - No authentication is configured - add Identity or JWT as needed
+- Always add tests when implementing new features
